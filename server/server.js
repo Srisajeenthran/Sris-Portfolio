@@ -7,7 +7,27 @@ import nodemailer from "nodemailer";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// =======================
+// CORS CONFIG
+// =======================
+const allowedOrigins = [
+  "http://localhost:5173",               
+  "https://sris-portfolio-six.vercel.app/"     
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow server-to-server / curl / Postman (no origin)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true
+  })
+);
+
 app.use(express.json());
 
 // =======================
@@ -20,9 +40,7 @@ if (!hasOpenAI) {
   console.warn("[Chatbot] OPENAI_API_KEY missing → Using fallback responses only.");
 }
 
-const openai = hasOpenAI
-  ? new OpenAI({ apiKey })
-  : null;
+const openai = hasOpenAI ? new OpenAI({ apiKey }) : null;
 
 const systemPrompt = `
 You are an AI assistant embedded in the portfolio of Srisajeenthran Sritharan.
@@ -46,14 +64,16 @@ const emailConfig = {
 
 const emailReady = Boolean(
   emailConfig.host &&
-  emailConfig.port &&
-  emailConfig.user &&
-  emailConfig.pass &&
-  emailConfig.to
+    emailConfig.port &&
+    emailConfig.user &&
+    emailConfig.pass &&
+    emailConfig.to
 );
 
 if (!emailReady) {
-  console.warn("[Contact] SMTP not fully configured → Messages will be logged instead of sent.");
+  console.warn(
+    "[Contact] SMTP not fully configured → Messages will be logged instead of sent."
+  );
 }
 
 const mailTransporter = emailReady
@@ -112,6 +132,10 @@ app.get("/", (req, res) => {
   res.send("Chatbot API is running.");
 });
 
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
 
@@ -149,7 +173,6 @@ app.post("/api/chat", async (req, res) => {
     if (!reply) reply = generateFallbackReply(message);
 
     res.json({ reply });
-
   } catch (error) {
     console.error("OpenAI error:", error);
 
@@ -181,7 +204,6 @@ app.post("/api/contact", async (req, res) => {
   try {
     await sendContactEmail({ name, email, subject, message });
     res.json({ status: "ok", message: "Your message has been sent." });
-
   } catch (err) {
     console.warn("[Contact] Email fallback:", err.message);
     res.status(503).json({
@@ -195,5 +217,5 @@ app.post("/api/contact", async (req, res) => {
 // =======================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Chatbot server running on http://localhost:${PORT}`);
+  console.log(`Chatbot server running on port ${PORT}`);
 });
