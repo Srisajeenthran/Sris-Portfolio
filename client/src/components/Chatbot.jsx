@@ -7,7 +7,7 @@ import {
   Bot,
   User,
   Sparkles,
-  Loader2
+  Loader2,
 } from "lucide-react";
 
 const API_BASE_URL =
@@ -19,7 +19,7 @@ const fallbackTopics = {
   projects:
     "Highlights include the LLM-powered interview automation suite, TryFit virtual dressing room, Fit-Connect social platform, and a MERN food delivery system.",
   contact:
-    "You can reach me at srisajeenthran00@gmail.com or connect via GitHub and LinkedIn linked in the Contact section."
+    "You can reach me at srisajeenthran00@gmail.com or connect via GitHub and LinkedIn linked in the Contact section.",
 };
 
 // Memoized message component for better performance
@@ -67,8 +67,8 @@ const Chatbot = () => {
     {
       id: crypto.randomUUID(),
       sender: "bot",
-      text: "Hi! I'm the AI assistant for Srisajeenthran. Ask about skills, projects, or how to get in touch."
-    }
+      text: "Hi! I'm the AI assistant for Srisajeenthran. Ask about skills, projects, or how to get in touch.",
+    },
   ]);
   const [isSending, setIsSending] = useState(false);
   const messagesEndRef = useRef(null);
@@ -120,7 +120,7 @@ const Chatbot = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: text }),
-          signal: abortControllerRef.current.signal
+          signal: abortControllerRef.current.signal,
         });
 
         if (!res.ok) throw new Error("Network error");
@@ -128,7 +128,7 @@ const Chatbot = () => {
         const data = await res.json();
         setMessages((prev) => [
           ...prev,
-          { id: crypto.randomUUID(), sender: "bot", text: data.reply }
+          { id: crypto.randomUUID(), sender: "bot", text: data.reply },
         ]);
       } catch (error) {
         if (error.name === "AbortError") return;
@@ -139,8 +139,8 @@ const Chatbot = () => {
           {
             id: crypto.randomUUID(),
             sender: "bot",
-            text: fallbackText
-          }
+            text: fallbackText,
+          },
         ]);
       } finally {
         setIsSending(false);
@@ -236,15 +236,28 @@ const Chatbot = () => {
         onClick={() => setOpen((prev) => !prev)}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
-        className={`group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl ${
-          open ? "opacity-0 pointer-events-none" : "opacity-100"
-        }`}
+        className={`group relative inline-flex items-center gap-2 rounded-full 
+    bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 
+    px-5 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl
+    overflow-hidden  // ⬅️ ensures inner hover layer stays rounded
+    ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 opacity-0 group-hover:opacity-100" />
+        {/* Hover overlay – also rounded */}
+        <div
+          className="absolute inset-0 rounded-full 
+      bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 
+      opacity-0 group-hover:opacity-100 transition-opacity"
+        />
         <div className="relative flex items-center gap-2">
-          <MessageCircle size={18} className="group-hover:scale-110" />
+          <MessageCircle
+            size={18}
+            className="group-hover:scale-110 transition-transform"
+          />
           <span>Chat with me</span>
-          <Sparkles size={14} className="opacity-0 group-hover:opacity-100" />
+          <Sparkles
+            size={14}
+            className="opacity-0 group-hover:opacity-100 transition-opacity"
+          />
         </div>
       </motion.button>
     </div>
