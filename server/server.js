@@ -13,9 +13,9 @@ const app = express();
 // =======================
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://sris-portfolio-six.vercel.app"
-  // If you add more frontends (Netlify, custom domain, etc.), add them here
+  "https://sris-portfolio.vercel.app"
 ];
+
 
 app.use(
   cors({
