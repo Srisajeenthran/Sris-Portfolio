@@ -9,22 +9,11 @@ dotenv.config();
 const app = express();
 
 // =======================
-// CORS CONFIG
+// CORS CONFIG (simplified)
 // =======================
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://sris-portfolio.vercel.app"
-];
-
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow server-to-server / curl / Postman (no origin)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
-    },
+    origin: true, // allow all origins (reflect origin)
     credentials: true
   })
 );
@@ -50,6 +39,7 @@ projects (LLM-based interview automation, TryFit virtual dressing room, Fit-Conn
 and internships (Uvexzon Software Engineering Intern May-Oct 2025, DGateway In Software Engineering Intern Mar-Jul 2024).
 Provide concise, friendly answers. If unsure, say so and point the user to the contact section or email srisajeenthran00@gmail.com.
 `;
+
 
 // =======================
 // EMAIL / CONTACT SETUP
