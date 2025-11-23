@@ -13,7 +13,7 @@ const app = express();
 // =======================
 app.use(
   cors({
-    origin: true, // allow all origins (reflect origin)
+    origin: true, 
     credentials: true
   })
 );
