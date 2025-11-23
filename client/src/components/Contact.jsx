@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import SectionHeader from "./SectionHeader.jsx";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "https://sris-portfolio-api.onrender.com";
 
 const contactInfo = [
   {
