@@ -12,8 +12,9 @@ const app = express();
 // CORS CONFIG
 // =======================
 const allowedOrigins = [
-  "http://localhost:5173",               
-  "https://sris-portfolio-six.vercel.app/"     
+  "http://localhost:5173",
+  "https://sris-portfolio-six.vercel.app"
+  // If you add more frontends (Netlify, custom domain, etc.), add them here
 ];
 
 app.use(
@@ -31,7 +32,7 @@ app.use(
 app.use(express.json());
 
 // =======================
-// OpenAI SETUP
+// OPENAI SETUP
 // =======================
 const apiKey = process.env.OPENAI_API_KEY;
 const hasOpenAI = Boolean(apiKey);

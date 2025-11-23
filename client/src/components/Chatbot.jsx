@@ -10,6 +10,8 @@ import {
   Loader2
 } from "lucide-react";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const fallbackTopics = {
   skills:
     "I focus on React/Next.js frontends, Node & Spring Boot backends, and AI tooling with GPT/BERT, NLP, and Python OpenCV.",
@@ -73,7 +75,6 @@ const Chatbot = () => {
   const abortControllerRef = useRef(null);
 
   const scrollToBottom = useCallback(() => {
-    // Use instant scroll for better performance
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "auto" });
     }
@@ -85,7 +86,6 @@ const Chatbot = () => {
 
   useEffect(() => {
     if (open && inputRef.current) {
-      // Small delay to ensure DOM is ready
       setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [open]);
@@ -98,54 +98,56 @@ const Chatbot = () => {
     return "I'm offline, but feel free to email srisajeenthran00@gmail.com.";
   }, []);
 
-  const handleSend = useCallback(async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isSending) return;
+  const handleSend = useCallback(
+    async (e) => {
+      e.preventDefault();
+      if (!input.trim() || isSending) return;
 
-    const text = input.trim();
-    const userMsg = { id: crypto.randomUUID(), sender: "user", text };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput("");
-    setIsSending(true);
+      const text = input.trim();
+      const userMsg = { id: crypto.randomUUID(), sender: "user", text };
+      setMessages((prev) => [...prev, userMsg]);
+      setInput("");
+      setIsSending(true);
 
-    // Abort any previous request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    abortControllerRef.current = new AbortController();
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      abortControllerRef.current = new AbortController();
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
-        signal: abortControllerRef.current.signal
-      });
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text }),
+          signal: abortControllerRef.current.signal
+        });
 
-      if (!res.ok) throw new Error("Network error");
+        if (!res.ok) throw new Error("Network error");
 
-      const data = await res.json();
-      setMessages((prev) => [
-        ...prev,
-        { id: crypto.randomUUID(), sender: "bot", text: data.reply }
-      ]);
-    } catch (error) {
-      if (error.name === "AbortError") return;
-      console.error("Chatbot assistant failed:", error);
-      const fallbackText = getFallbackReply(text);
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          sender: "bot",
-          text: fallbackText
-        }
-      ]);
-    } finally {
-      setIsSending(false);
-      abortControllerRef.current = null;
-    }
-  }, [input, isSending, getFallbackReply]);
+        const data = await res.json();
+        setMessages((prev) => [
+          ...prev,
+          { id: crypto.randomUUID(), sender: "bot", text: data.reply }
+        ]);
+      } catch (error) {
+        if (error.name === "AbortError") return;
+        console.error("Chatbot assistant failed:", error);
+        const fallbackText = getFallbackReply(text);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: crypto.randomUUID(),
+            sender: "bot",
+            text: fallbackText
+          }
+        ]);
+      } finally {
+        setIsSending(false);
+        abortControllerRef.current = null;
+      }
+    },
+    [input, isSending, getFallbackReply]
+  );
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
@@ -175,7 +177,7 @@ const Chatbot = () => {
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setOpen(false)}
-                className="rounded-lg border border-white/10 bg-white/5 p-1.5 text-slate-400 transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white"
+                className="rounded-lg border border-white/10 bg-white/5 p-1.5 text-slate-400 hover:border-white/20 hover:bg-white/10 hover:text-white"
               >
                 <X size={16} />
               </motion.button>
@@ -208,14 +210,14 @@ const Chatbot = () => {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask something..."
                 disabled={isSending}
-                className="flex-1 rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 transition-all duration-150 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex-1 rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
               />
               <motion.button
                 type="submit"
                 disabled={isSending || !input.trim()}
                 whileHover={{ scale: isSending || !input.trim() ? 1 : 1.1 }}
                 whileTap={{ scale: isSending || !input.trim() ? 1 : 0.9 }}
-                className="flex items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 p-2.5 text-white shadow-lg shadow-blue-500/50 transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-60 hover:shadow-xl hover:shadow-cyan-500/60"
+                className="flex items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 p-2.5 text-white shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSending ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -233,18 +235,15 @@ const Chatbot = () => {
         onClick={() => setOpen((prev) => !prev)}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
-        className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/50 transition-all duration-150 hover:shadow-xl hover:shadow-cyan-500/60 ${
+        className={`group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl ${
           open ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 opacity-0 group-hover:opacity-100" />
         <div className="relative flex items-center gap-2">
-          <MessageCircle size={18} className="transition-transform duration-300 group-hover:scale-110" />
+          <MessageCircle size={18} className="group-hover:scale-110" />
           <span>Chat with me</span>
-          <Sparkles
-            size={14}
-            className="opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          />
+          <Sparkles size={14} className="opacity-0 group-hover:opacity-100" />
         </div>
       </motion.button>
     </div>

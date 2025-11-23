@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import SectionHeader from "./SectionHeader.jsx";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const contactInfo = [
   {
     label: "Email",
@@ -71,7 +73,7 @@ const Contact = () => {
     setStatus({ type: "idle", message: "" });
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(trimmed)
@@ -247,10 +249,16 @@ const Contact = () => {
                     <a
                       href={item.href}
                       target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      rel={
+                        item.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className="group/item flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-white/20 hover:bg-white/10"
                     >
-                      <div className={`flex items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} p-2.5 shadow-lg`}>
+                      <div
+                        className={`flex items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} p-2.5 shadow-lg`}
+                      >
                         <Icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="flex-1">
