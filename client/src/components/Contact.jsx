@@ -10,9 +10,7 @@ import {
   Sparkles
 } from "lucide-react";
 import SectionHeader from "./SectionHeader.jsx";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "https://sris-portfolio-api.onrender.com";
+import emailjs from "@emailjs/browser";
 
 const contactInfo = [
   {
@@ -74,27 +72,58 @@ const Contact = () => {
     setStatus({ type: "idle", message: "" });
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(trimmed)
-      });
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      const payload = await response.json().catch(() => ({}));
-
-      if (!response.ok || payload?.error) {
+      if (!serviceId || !templateId || !publicKey) {
         throw new Error(
-          payload?.error || "Something went wrong sending your message."
+          "Email service is not configured. Please check your .env values."
         );
       }
 
+      // Send to YOU (single template)
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: trimmed.name,
+          email: trimmed.email,
+          subject: trimmed.subject,
+          message: trimmed.message,
+          to_email: "srisajeenthran00@gmail.com"
+        },
+        publicKey
+      );
+
+      // Optional: Auto-reply using same template (uncomment if you want)
+      /*
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: "Srisajeenthran",
+          email: "srisajeenthran00@gmail.com",
+          subject: `Re: ${trimmed.subject}`,
+          message: `Hi ${trimmed.name},
+
+Thanks for reaching out through my portfolio. I’ve received your message and will reply soon.
+
+Best regards,
+Srisajeenthran`,
+          to_email: trimmed.email
+        },
+        publicKey
+      );
+      */
+
       setStatus({
         type: "success",
-        message: payload?.message || "Thanks! Your message is on its way."
+        message: "Thanks! Your message has been sent."
       });
       setForm(initialFormState);
     } catch (error) {
-      console.error("Contact form failed:", error);
+      console.error("EmailJS error:", error);
       setStatus({
         type: "error",
         message:
@@ -113,6 +142,7 @@ const Contact = () => {
         title="Let’s build together"
         description="Whether it’s intelligent HR tooling or immersive product experiences, I’m open to collaborate."
       />
+
       <div className="grid gap-8 lg:grid-cols-2">
         <motion.form
           initial={{ opacity: 0, y: 20 }}
@@ -123,6 +153,7 @@ const Contact = () => {
           onSubmit={handleSubmit}
         >
           <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-blue-600/20 to-cyan-500/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
           <div className="relative">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-teal-500 p-2 shadow-lg">
@@ -130,6 +161,7 @@ const Contact = () => {
               </div>
               <h3 className="text-xl font-semibold text-white">Send a message</h3>
             </div>
+
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="text-sm text-slate-300">
                 Name
@@ -141,6 +173,7 @@ const Contact = () => {
                   className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 transition-all duration-300 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
                 />
               </label>
+
               <label className="text-sm text-slate-300">
                 Email
                 <input
@@ -152,6 +185,7 @@ const Contact = () => {
                 />
               </label>
             </div>
+
             <label className="mt-4 block text-sm text-slate-300">
               Subject
               <input
@@ -162,6 +196,7 @@ const Contact = () => {
                 className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 transition-all duration-300 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
               />
             </label>
+
             <label className="mt-4 block text-sm text-slate-300">
               Message
               <textarea
@@ -172,6 +207,7 @@ const Contact = () => {
                 className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 transition-all duration-300 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
               />
             </label>
+
             <motion.button
               type="submit"
               disabled={isSubmitting}
@@ -195,6 +231,7 @@ const Contact = () => {
                 </>
               )}
             </motion.button>
+
             {status.message && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -232,8 +269,7 @@ const Contact = () => {
               <h3 className="text-xl font-semibold text-white">Reach me directly</h3>
             </div>
             <p className="mb-6 text-slate-400">
-              Prefer direct outreach? Drop an email or connect via GitHub /
-              LinkedIn.
+              Prefer direct outreach? Drop an email or connect via GitHub / LinkedIn.
             </p>
             <ul className="space-y-3">
               {contactInfo.map((item, idx) => {
