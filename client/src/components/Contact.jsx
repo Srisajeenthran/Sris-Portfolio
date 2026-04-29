@@ -6,11 +6,12 @@ import {
   Linkedin,
   Send,
   CheckCircle2,
-  AlertCircle,
-  Sparkles
+  AlertCircle
 } from "lucide-react";
 import SectionHeader from "./SectionHeader.jsx";
 import emailjs from "@emailjs/browser";
+import GlowContainer from "./GlowContainer.jsx";
+import MagneticButton from "./MagneticButton.jsx";
 
 const contactInfo = [
   {
@@ -18,21 +19,21 @@ const contactInfo = [
     value: "srisajeenthran00@gmail.com",
     href: "mailto:srisajeenthran00@gmail.com",
     icon: Mail,
-    gradient: "from-blue-500 to-cyan-500"
+    gradient: "from-primary to-primary/60"
   },
   {
     label: "GitHub",
     value: "github.com/Srisajeenthran",
     href: "https://github.com/Srisajeenthran",
     icon: Github,
-    gradient: "from-cyan-500 to-teal-500"
+    gradient: "from-primary/80 to-primary/40"
   },
   {
     label: "LinkedIn",
     value: "linkedin.com/in/srisajeenthran-sritharan",
     href: "https://www.linkedin.com/in/srisajeenthran-sritharan",
     icon: Linkedin,
-    gradient: "from-blue-600 to-cyan-500"
+    gradient: "from-primary/90 to-primary/50"
   }
 ];
 
@@ -82,7 +83,6 @@ const Contact = () => {
         );
       }
 
-      // Send to YOU (single template)
       await emailjs.send(
         serviceId,
         templateId,
@@ -95,27 +95,6 @@ const Contact = () => {
         },
         publicKey
       );
-
-      // Optional: Auto-reply using same template (uncomment if you want)
-      /*
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          name: "Srisajeenthran",
-          email: "srisajeenthran00@gmail.com",
-          subject: `Re: ${trimmed.subject}`,
-          message: `Hi ${trimmed.name},
-
-Thanks for reaching out through my portfolio. I’ve received your message and will reply soon.
-
-Best regards,
-Srisajeenthran`,
-          to_email: trimmed.email
-        },
-        publicKey
-      );
-      */
 
       setStatus({
         type: "success",
@@ -136,179 +115,133 @@ Srisajeenthran`,
   };
 
   return (
-    <section id="contact" className="space-y-10">
+    <section id="contact" className="relative py-20">
+      {/* Background Glow */}
+
       <SectionHeader
-        eyebrow="Contact"
-        title="Let’s build together"
-        description="Whether it’s intelligent HR tooling or immersive product experiences, I’m open to collaborate."
+        eyebrow="SYNTHESIS & COLLABORATION"
+        title="Let's Architect the Future"
+        description="Whether it's discussing intelligent HR tooling or immersive product ecosystems, I'm open to meaningful collaboration."
       />
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
-          className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-6 backdrop-blur"
-          onSubmit={handleSubmit}
+      <div className="mt-16 grid gap-12 lg:grid-cols-2">
+        <GlowContainer
+          className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border-2 border-border/10 bg-card p-6 md:p-10 transition-all duration-700 hover:border-primary/20"
         >
-          <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-blue-600/20 to-cyan-500/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
+          <form onSubmit={handleSubmit}>
           <div className="relative">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-teal-500 p-2 shadow-lg">
-                <Send className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-white">Send a message</h3>
-            </div>
+            <h3 className="text-3xl font-black tracking-tighter text-foreground sm:text-5xl">
+              Send a message
+            </h3>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="text-sm text-slate-300">
-                Name
+            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+              <div className="space-y-2">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Name</p>
                 <input
                   type="text"
                   placeholder="Your name"
                   value={form.name}
                   onChange={handleChange("name")}
-                  className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 transition-all duration-300 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-foreground placeholder:text-muted-foreground/30 focus:border-primary/50 focus:bg-white/10 focus:outline-none transition-all duration-300"
                 />
-              </label>
+              </div>
 
-              <label className="text-sm text-slate-300">
-                Email
+              <div className="space-y-2">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Email</p>
                 <input
                   type="email"
                   placeholder="you@email.com"
                   value={form.email}
                   onChange={handleChange("email")}
-                  className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 transition-all duration-300 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-foreground placeholder:text-muted-foreground/30 focus:border-primary/50 focus:bg-white/10 focus:outline-none transition-all duration-300"
                 />
-              </label>
+              </div>
             </div>
 
-            <label className="mt-4 block text-sm text-slate-300">
-              Subject
+            <div className="mt-6 space-y-2">
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Subject</p>
               <input
                 type="text"
                 placeholder="Project idea"
                 value={form.subject}
                 onChange={handleChange("subject")}
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 transition-all duration-300 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-foreground placeholder:text-muted-foreground/30 focus:border-primary/50 focus:bg-white/10 focus:outline-none transition-all duration-300"
               />
-            </label>
+            </div>
 
-            <label className="mt-4 block text-sm text-slate-300">
-              Message
+            <div className="mt-6 space-y-2">
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Message</p>
               <textarea
                 rows="5"
                 placeholder="Tell me about your vision..."
                 value={form.message}
                 onChange={handleChange("message")}
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 transition-all duration-300 focus:border-cyan-500/50 focus:bg-slate-950/80 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-foreground placeholder:text-muted-foreground/30 focus:border-primary/50 focus:bg-white/10 focus:outline-none transition-all duration-300 resize-none"
               />
-            </label>
+            </div>
 
-            <motion.button
-              type="submit"
-              disabled={isSubmitting}
-              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/50 transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60 hover:shadow-xl hover:shadow-cyan-500/60"
-            >
-              {isSubmitting ? (
-                <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
-                  />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Send size={16} />
-                  Send Message
-                </>
-              )}
-            </motion.button>
+            <MagneticButton className="w-full mt-10">
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="flex w-full items-center justify-center gap-3 rounded-full bg-primary py-5 text-lg font-black text-white transition-all hover:bg-primary/90 disabled:opacity-50"
+              >
+                {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
+                <Send className="h-5 w-5" />
+              </motion.button>
+            </MagneticButton>
 
             {status.message && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`mt-4 flex items-center gap-2 rounded-xl border px-4 py-3 text-sm ${
-                  status.type === "success"
-                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
-                    : "border-rose-500/30 bg-rose-500/10 text-rose-400"
-                }`}
-              >
-                {status.type === "success" ? (
-                  <CheckCircle2 size={18} />
-                ) : (
-                  <AlertCircle size={18} />
-                )}
-                <p>{status.message}</p>
-              </motion.div>
+              <p className={`mt-6 text-center text-sm font-bold ${status.type === "success" ? "text-emerald-500" : "text-rose-500"}`}>
+                 {status.message}
+              </p>
             )}
           </div>
-        </motion.form>
+          </form>
+        </GlowContainer>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-6 backdrop-blur"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col justify-center gap-10"
         >
-          <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-gradient-to-br from-cyan-500/20 to-teal-500/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-          <div className="relative">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-teal-500 p-2 shadow-lg">
-                <Sparkles className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-white">Reach me directly</h3>
-            </div>
-            <p className="mb-6 text-slate-400">
-              Prefer direct outreach? Drop an email or connect via GitHub / LinkedIn.
+          <div className="space-y-4 px-2">
+            <h3 className="text-3xl font-black tracking-tighter text-foreground sm:text-5xl">Direct Channels</h3>
+            <p className="max-w-md text-xl text-muted-foreground">
+               I value meaningful connections. If you prefer a direct conversation, use the links below.
             </p>
-            <ul className="space-y-3">
-              {contactInfo.map((item, idx) => {
-                const Icon = item.icon;
-                return (
-                  <motion.li
-                    key={item.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
-                    whileHover={{ x: 4 }}
-                  >
-                    <a
-                      href={item.href}
-                      target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel={
-                        item.href.startsWith("http")
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
-                      className="group/item flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-white/20 hover:bg-white/10"
-                    >
-                      <div
-                        className={`flex items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} p-2.5 shadow-lg`}
-                      >
-                        <Icon className="h-5 w-5 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-xs text-slate-400">{item.label}</p>
-                        <p className="mt-1 text-base font-semibold text-white group-hover/item:text-transparent group-hover/item:bg-gradient-to-r group-hover/item:from-blue-500 group-hover/item:via-cyan-400 group-hover/item:to-teal-400 group-hover/item:bg-clip-text">
-                          {item.value}
-                        </p>
-                      </div>
-                    </a>
-                  </motion.li>
-                );
-              })}
-            </ul>
+          </div>
+
+          <div className="space-y-6">
+            {contactInfo.map((item, idx) => (
+              <GlowContainer
+                key={item.label}
+                className="group relative flex items-center gap-4 sm:gap-6 rounded-[2rem] border-2 border-border/10 bg-card p-4 sm:p-6 transition-all duration-500 hover:border-primary/20"
+              >
+                <div 
+                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`} 
+                />
+                
+                <a
+                  href={item.href}
+                  className="relative z-10 flex items-center gap-4 sm:gap-6 w-full"
+                >
+                  <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg transition-transform duration-500 group-hover:scale-110`}>
+                    <item.icon className="h-6 w-6" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                     <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">{item.label}</p>
+                     <p className="mt-1 text-sm xs:text-base sm:text-xl font-black text-foreground break-all leading-tight">
+                       {item.value}
+                     </p>
+                  </div>
+                </a>
+              </GlowContainer>
+            ))}
           </div>
         </motion.div>
       </div>

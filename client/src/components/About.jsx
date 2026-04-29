@@ -4,105 +4,108 @@ import {
   GraduationCap,
   Briefcase,
   Target,
-  Sparkles,
 } from "lucide-react";
 import SectionHeader from "./SectionHeader.jsx";
+import GlowContainer from "./GlowContainer.jsx";
 
 const quickFacts = [
   {
     label: "Based in",
-    value: "Kalmunai, Sri Lanka",
+    value: "Colombo, Sri Lanka",
     icon: MapPin,
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-primary to-primary/60",
   },
   {
     label: "Education",
     value: "BSc (Hons) in IT – SLIIT",
     icon: GraduationCap,
-    gradient: "from-cyan-500 to-teal-500",
+    gradient: "from-primary/80 to-primary/40",
   },
   {
     label: "Opportunities",
-    value: "Software engineering internships & junior roles",
+    value: "Software engineering Associate & junior roles",
     icon: Briefcase,
-    gradient: "from-blue-600 to-cyan-500",
+    gradient: "from-primary to-primary/70",
   },
   {
     label: "Focus",
     value: "Full Stack · AI / ML",
     icon: Target,
-    gradient: "from-rose-500 to-orange-500",
+    gradient: "from-primary/90 to-primary/50",
   },
 ];
 
 const About = () => (
-  <section id="about" className="space-y-10">
-    <SectionHeader
-      eyebrow="About Me"
-      title="Purpose-built engineering with AI-first thinking"
-      description="Drawing from academic research on AI-driven recruitment and hands-on product work, I design systems that treat user experience, scalability, and intelligence as a single craft."
-    />
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.6 }}
-      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-8 backdrop-blur"
-    >
-      <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-blue-600/20 to-cyan-500/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-      <div className="relative">
-        <div className="mb-6 flex items-center gap-3">
-          <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-teal-500 p-2 shadow-lg">
-            <Sparkles className="h-5 w-5 text-white" />
-          </div>
-          <h3 className="text-xl font-semibold text-white">About Me</h3>
+  <section id="about" className="relative py-20">
+    {/* Decorative Background */}
+
+    <div className="mx-auto max-w-7xl px-4 lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <SectionHeader
+          eyebrow="ETHOS & DIRECTION"
+          title="Treating Intelligence as a Craft"
+          className="text-left"
+        />
+        <div className="mt-8 lg:mt-12 space-y-4 sm:space-y-6 text-lg sm:text-xl leading-relaxed text-muted-foreground md:text-xl">
+          <p>
+            I am a <span className="font-black text-foreground underline decoration-primary/30">Software Engineering student</span> at SLIIT, focusing on the future of work and human-AI collaboration.
+          </p>
+          <p>
+            As part of a 4-member research team, we engineered the <span className="font-bold text-foreground">Smart HR Analytics Platform</span> a full-stack ecosystem combining AI microservices for resume screening, dynamic live interviews, and predictive employee retention.
+          </p>
+          <p>
+            My specific contribution focuses on the <span className="italic font-black text-foreground underline decoration-primary/30">Dynamic Interview Architecture</span>, an exploration of ethical automation that leverages advanced LLMs to streamline recruitment while maintaining human empathy and scoring integrity.
+          </p>
         </div>
-        <p className="text-lg leading-relaxed text-slate-300">
-          I am an undergraduate student at the Sri Lanka Institute of
-          Information Technology, specializing in Information Technology
-          (Student Ref: IT22601292). My research focuses on AI-driven interview
-          pipelines and human capital management systems that integrate
-          LLM-powered question generation, automated candidate scoring, and
-          ethical hiring safeguards. Beyond research, I have built
-          production-grade solutions using MERN, Spring Boot, and Vite-based
-          architectures, consistently incorporating ML and NLP insights to
-          enhance user experience and system intelligence.
-        </p>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {quickFacts.map((fact, idx) => {
-            const Icon = fact.icon;
-            return (
-              <motion.div
-                key={fact.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
-                whileHover={{ scale: 1.05, y: -4 }}
-                className="group/item relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/5 p-4 backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/10"
-              >
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="mt-16 lg:mt-0"
+      >
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {quickFacts.map((fact, idx) => (
+            <GlowContainer
+              key={fact.label}
+              className="group relative overflow-hidden rounded-[2rem] border-2 border-border/10 bg-card transition-all duration-500 hover:border-primary/20"
+            >
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${fact.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`}
+              />
+              <div className="relative p-8">
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${fact.gradient} opacity-0 transition-opacity duration-300 group-hover/item:opacity-10`}
-                />
-                <div className="relative flex items-center gap-3">
-                  <div
-                    className={`flex items-center justify-center rounded-xl bg-gradient-to-br ${fact.gradient} p-2 shadow-lg`}
-                  >
-                    <Icon className="h-4 w-4 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm text-slate-400">{fact.label}</p>
-                    <p className="mt-1 text-lg font-semibold text-white">
-                      {fact.value}
-                    </p>
-                  </div>
+                  className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${fact.gradient} shadow-lg`}
+                >
+                  <fact.icon className="h-6 w-6 text-white" />
                 </div>
-              </motion.div>
-            );
-          })}
+                <h4 className="mt-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  {fact.label}
+                </h4>
+                <p className="mt-2 text-xl font-black text-foreground leading-tight">
+                  {fact.value}
+                </p>
+              </div>
+            </GlowContainer>
+          ))}
         </div>
-      </div>
-    </motion.div>
+
+        {/* Floating Accent */}
+        <div className="mt-10 flex items-center gap-4 rounded-3xl border border-border bg-primary/10 p-6 backdrop-blur">
+          
+          <p className="text-sm border-l-2 border-primary pl-4 text-muted-foreground leading-relaxed"> 
+            <span className="font-bold text-foreground">Active Focus:</span> Architecting the <span className="italic">Dynamic Interview Subsystem</span> with Python, WebRTC, and OpenAI's Whisper & GPT models.
+          </p>
+        </div>
+      </motion.div>
+    </div>
   </section>
 );
 

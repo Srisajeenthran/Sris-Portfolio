@@ -1,178 +1,151 @@
-# Portfolio Website
+<div align="center">
 
-A modern, responsive portfolio website showcasing the work and skills of Srisajeenthran Sritharan. Built with React, Vite, Tailwind CSS, and Framer Motion, featuring an AI-powered chatbot assistant.
+![Portfolio UI Banner](./client/src/assets/profile.jpg) 
 
-## 🚀 Features
+# 🌌 Srisajeenthran Sritharan — Premium Portfolio
 
-- **Modern UI/UX**: Beautiful, responsive design with smooth animations
-- **AI Chatbot**: Interactive assistant powered by OpenAI API
-- **Contact Form**: Email integration for direct communication
-- **Project Showcase**: Detailed project cards with live demos and GitHub links
-- **Skills & Experience**: Visual timeline and skill displays
-- **Performance Optimized**: Fast loading times and smooth interactions
+### **Full-Stack Engineering & AI/ML Research**
 
-## 📁 Project Structure
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-Bundler-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-Library-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-```
-Portfolio/
-├── client/          # React frontend application
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── public/      # Static assets
-│   └── package.json
-└── server/          # Express backend API
-    ├── server.js    # API endpoints
-    └── package.json
-```
+---
 
-## 🛠️ Tech Stack
+A modern, responsive portfolio ecosystem engineered with a premium **Professional Glassmorphic / Dark Aurora** design system. Seamlessly combining comprehensive full-stack project showcases, an integrated AI chatbot, and fluid cinematic rendering experiences to deliver a world-class presentation.
 
-### Frontend
-- **React 19** - UI library
-- **Vite** - Build tool and dev server
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **Framer Motion** - Animation library
-- **Lucide React** - Icon library
+[**Features**](#-features) • [**Tech Stack**](#-tech-stack) • [**Quick Start**](#-quick-start) • [**File Structure**](#-file-structure) • [**Architecture**](#-system-architecture)
 
-### Backend
-- **Express.js** - Web framework
-- **OpenAI API** - AI chatbot integration
-- **Nodemailer** - Email service
-- **CORS** - Cross-origin resource sharing
+</div>
 
-## 📦 Installation
+---
+
+## ✨ Features
+
+### 🎯 Core Experiences
+| Module | Description |
+|:---|:---|
+| **🛸 Cinematic Interfaces** | Extreme glassmosphism UI built intricately using Tailwind CSS v4 and Framer Motion micro-interactions |
+| **🤖 Integrated AI Assistant** | Custom-built chatbot assistant bridging the gap between portfolio analytics and GPT-driven conversations |
+| **💼 Professional Showcase** | Detailed renderings for comprehensive Enterprise applications ranging from GymFlow to the Smart HR Analytics Engine |
+| **📱 Fully Responsive**| Optimized layout grids automatically restructuring for Mobile, Tablet, and Desktop environments |
+| **🔬 Research Showcase** | Dedicated analytical breakdown of AI/ML research contributions and algorithmic sub-system tracking |
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend & Core Design
+| Technology | Purpose |
+|:---|:---|
+| React.js 19 | Complex UI Interfaces, DOM Routing, and Section Renderings |
+| Tailwind CSS | Premium Glassmorphic Styling Elements & Fast Layout Prototypes |
+| Framer Motion | Specialized Scroll Reveal Triggers & Fluid Physics mechanics |
+| Vite | Instant HMR Bundling and Static Delivery compilation |
+
+### Backend Logic
+| Technology | Purpose |
+|:---|:---|
+| Node.js & Express | Core local server operations & API logic routing layer |
+| OpenAI API | NLP capabilities for the local portfolio Chatbot interaction |
+| Nodemailer | Secure communication email pipeline directly connecting client forms |
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
+- **Node.js** v18+ — [Download](https://nodejs.org/)
 
-### Setup
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/Srisajeenthran/Sris-Portfolio.git
+cd Portfolio
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd Portfolio
-   ```
+### 2️⃣ Start the Core Backend
+```bash
+cd server
+npm install
+npm start
+```
 
-2. **Install client dependencies**
-   ```bash
-   cd client
-   npm install
-   ```
+### 3️⃣ Start the Frontend
+In a new terminal:
+```bash
+cd client
+npm install
+npm run dev
+```
 
-3. **Install server dependencies**
-   ```bash
-   cd ../server
-   npm install
-   ```
+> [!IMPORTANT]
+> The backend server runs by default on port `5000` while Vite binds to port `5173`. Ensure `.env` is properly configured inside the `server/` directory with `SMTP_PASS` and valid OpenAI configuration keys.
 
-4. **Configure environment variables**
+---
 
-   Create a `.env` file in the `server/` directory:
-   ```env
+## 📁 File Structure
 
+```text
+Portfolio/
+├── README.md
+├── client/                      # 🎨 React.js SPA & UI Dashboards
+│   ├── package.json
+│   ├── public/
+│   │   ├── resume.pdf
+│   │   └── projects/
+│   └── src/
+│       ├── components/          # Reusable JSX (Glassmorphism & Gradients)
+│       ├── App.jsx              
+│       └── main.jsx
+│
+└── server/                      # ⚙️ Express / Node Interactor Server
+    ├── package.json
+    └── server.js                # Core API Gateway & SMTP Integrations
+```
 
-   # Server Port (optional)
-   PORT=5000
-   ```
+---
 
-## 🚀 Running the Application
+## 🏗 System Architecture
 
-### Development Mode
+```mermaid
+graph TD
+    User((Visitor / Recruiter)) -->|Browser Access| FE[Frontend: React 19 SPA]
+    FE -->|Data Fetch & Form HTTP| BE[Backend: Core Node.js Server]
 
-1. **Start the backend server**
-   ```bash
-   cd server
-   npm start
-   ```
-   Server will run on `http://localhost:5000`
+    subgraph 🔮 Portfolio UI Layer
+        Hero(Hero Introduction) -.->|Scroll Context| About(Mission & Research)
+        About -.->|Scroll Context| Skills(Competency Map)
+        Skills -.->|Scroll Context| Projects(Showcase Grid)
+    end
+    
+    FE <-->|User Engagement| Chatbot[🤖 AI Assistant Modal]
+    Chatbot <-->|Conversational Streams| OpenAI[OpenAI GPT API]
+    
+    FE -->|Data Sync| BE
+    BE <-->|Mail Service| Nodemailer[SMTP Gmail / Client Link]
+```
 
-2. **Start the frontend dev server** (in a new terminal)
-   ```bash
-   cd client
-   npm run dev
-   ```
-   Frontend will run on `http://localhost:5173`
+---
 
-### Production Build
+## 🎨 Design System — "Cinematic Dark Aurora"
 
-1. **Build the frontend**
-   ```bash
-   cd client
-   npm run build
-   ```
+| Element | Implementation |
+|:---|:---|
+| **Background** | Clean pitch backgrounds integrating subtle noise textures and UI blur orbs |
+| **Containers** | Translucent overlays with `backdrop-filter` for elevated glass styling (`GlowContainer.jsx`) |
+| **Typography** | Minimalist readable fonts suited for modern contrast grids and variable tracking |
+| **Animations** | Custom `RevealContainer.jsx` driving scroll-linked physics mapped heavily via Framer Motion |
 
-2. **The built files will be in `client/dist/`**
+---
 
-## 📝 Available Scripts
+<div align="center">
 
-### Client
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+### Treating Intelligence as a Craft 🚀
 
-### Server
-- `npm start` - Start the Express server
+**Srisajeenthran Sritharan — 2026**
 
-## 🎨 Customization
+Constructed with React, Node.js, and an eye for premium aesthetics.
 
-### Adding Your Profile Image
-Place your profile photo at `client/public/profile.jpg`
-
-### Adding Project Images
-Place project screenshots in `client/public/projects/`:
-- `interview-suite.jpg`
-- `tryfit.jpg`
-- `fit-connect.jpg`
-- `food-delivery.jpg`
-
-### Updating Resume
-Replace `client/public/resume.pdf` with your resume
-
-### Modifying Content
-Edit the component files in `client/src/components/`:
-- `Hero.jsx` - Hero section
-- `About.jsx` - About section
-- `Skills.jsx` - Skills display
-- `Experience.jsx` - Work experience
-- `Projects.jsx` - Project showcase
-- `Contact.jsx` - Contact form
-
-## 🔧 Configuration
-
-### Email Setup (Gmail Example)
-
-1. Enable 2-Step Verification on your Google account
-2. Generate an App Password:
-   - Go to Google Account → Security → 2-Step Verification → App passwords
-   - Create a new app password for "Mail"
-3. Use the generated password in `SMTP_PASS`
-
-### OpenAI API Setup
-
-1. Sign up at [OpenAI Platform](https://platform.openai.com/)
-2. Create an API key
-3. Add credits to your account
-4. Add the key to `server/.env`
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👤 Author
-
-**Srisajeenthran Sritharan**
-- Email: srisajeenthran00@gmail.com
-- GitHub: [@Srisajeenthran](https://github.com/Srisajeenthran)
-- LinkedIn: [srisajeenthran-sritharan](https://www.linkedin.com/in/srisajeenthran-sritharan)
-
-## 🙏 Acknowledgments
-
-- Built with [Vite](https://vitejs.dev/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-- Animated with [Framer Motion](https://www.framer.com/motion/)
-- Icons by [Lucide](https://lucide.dev/)
-
+</div>

@@ -3,127 +3,129 @@ import {
   Code,
   Database,
   Brain,
-  Sparkles,
-  CheckCircle2
+  Cpu,
+  Globe,
+  Layers,
+  Terminal,
+  Server
 } from "lucide-react";
 import SectionHeader from "./SectionHeader.jsx";
+import GlowContainer from "./GlowContainer.jsx";
 
-const categories = [
+const skillGroups = [
   {
-    title: "Frontend",
+    id: "frontend",
+    title: "Visual Performance",
+    subtitle: "Frontend Architecture",
     icon: Code,
-    gradient: "from-blue-500 via-cyan-500 to-teal-500",
-    borderGradient: "from-blue-500/50 to-cyan-500/50",
+    span: "md:col-span-7",
+    gradient: "from-blue-500/20 via-primary/10 to-transparent",
     items: [
-      "React.js",
-      "Next.js",
-      "JavaScript (ES6+)",
-      "TypeScript",
-      "Tailwind CSS",
-      "Redux",
-      "Material UI",
-      "Cloudscape Design"
+      "React.js", "Next.js", "JavaScript (ES6+)", "TypeScript", 
+      "Tailwind CSS v4", "Redux Toolkit", "Framer Motion", "Material UI", 
+      "Cloudscape Design", "Responsive Logic"
     ]
   },
   {
-    title: "Backend",
+    id: "backend",
+    title: "System Integrity",
+    subtitle: "Backend & Data",
     icon: Database,
-    gradient: "from-blue-600 via-cyan-500 to-teal-500",
-    borderGradient: "from-blue-600/50 to-teal-500/50",
-    items: [
-      "Node.js & Express.js",
-      "Java Spring Boot",
-      "MongoDB · MySQL",
-      "REST & GraphQL APIs"
-    ]
+    span: "md:col-span-5",
+    gradient: "from-purple-500/20 via-primary/10 to-transparent",
+    items: ["Node.js", "Express", "Spring Boot", "MongoDB", "MySQL", "GraphQL"]
   },
   {
-    title: "AI / Tools",
+    id: "ai",
+    title: "Neural Intelligence",
+    subtitle: "AI & ML Frameworks",
     icon: Brain,
-    gradient: "from-blue-600 via-cyan-500 to-teal-500",
-    borderGradient: "from-blue-600/50 to-teal-500/50",
+    span: "md:col-span-5",
+    gradient: "from-emerald-500/20 via-primary/10 to-transparent",
+    items: ["LLMs (GPT/BERT)", "NLP Pipelines", "Python OpenCV", "Vector DBs"]
+  },
+  {
+    id: "tools",
+    title: "Engineering Lifecycle",
+    subtitle: "DevOps & Core Tools",
+    icon: Terminal,
+    span: "md:col-span-7",
+    gradient: "from-orange-500/10 via-primary/5 to-transparent",
     items: [
-      "LLMs (GPT, BERT)",
-      "NLP & Bias Mitigation",
-      "Python OpenCV",
-      "Android (Java/Kotlin)",
-      "Git · GitHub · Docker · Kubernetes",
-      "Vite · Agile Delivery"
+      "Docker", "Kubernetes", "Git/GitHub", "Vite", "Agile Methodology", 
+      "CI/CD Pipelines", "Linux Systems", "Unit Testing"
     ]
   }
 ];
 
 const Skills = () => (
-  <section id="skills" className="space-y-10">
+  <section id="skills" className="relative py-24 overflow-hidden">
     <SectionHeader
-      eyebrow="Skills"
-      title="Modern product engineering toolkit"
-      description="A balanced stack across frontend craft, resilient backends, and AI/ML integrations."
+      eyebrow="TECHNICAL MASTERY"
+      title="High-Performance Engineering Stack"
+      description="An asymmetric toolkit curated for scalability, machine intelligence, and cinematic interaction design."
     />
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {categories.map((category, index) => {
-        const Icon = category.icon;
+
+    <div className="mt-20 grid grid-cols-1 gap-6 md:grid-cols-12 max-w-[1400px] mx-auto px-4 sm:px-10 lg:px-20">
+      {skillGroups.map((group, index) => {
         return (
-          <motion.div
-            key={category.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: index * 0.15 }}
-            whileHover={{ scale: 1.03, y: -4 }}
-            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-6 backdrop-blur transition-all duration-300"
+          <GlowContainer
+            key={group.id}
+            className={`group relative overflow-hidden rounded-[2.5rem] border-2 border-white/5 bg-zinc-950 transition-all duration-700 hover:border-primary/20 ${group.span}`}
           >
-            {/* Gradient border effect */}
-            <div
-              className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${category.borderGradient} opacity-0 transition-opacity duration-300 group-hover:opacity-20`}
-            />
+            {/* Background Aesthetic Blur */}
+            <div className={`absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br ${group.gradient} blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-100`} />
             
-            {/* Header with icon */}
-            <div className="relative mb-6 flex items-center gap-3">
-              <div
-                className={`flex items-center justify-center rounded-2xl bg-gradient-to-br ${category.gradient} p-3 shadow-lg`}
-              >
-                <Icon className="h-5 w-5 text-white" />
+            <div className="relative z-10 h-full flex flex-col p-8 md:p-12">
+              <div className="flex items-start justify-between">
+                <div className="space-y-4">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-primary shadow-2xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                    <group.icon className="h-7 w-7" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60">{group.subtitle}</p>
+                    <h3 className="text-3xl font-black tracking-tighter text-white sm:text-4xl mt-1">
+                      {group.title}
+                    </h3>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-white">
-                {category.title}
-              </h3>
+
+              <div className="mt-10 flex flex-wrap gap-3">
+                {group.items.map((item, i) => (
+                  <motion.div
+                    key={item}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 + i * 0.03 }}
+                    whileHover={{ 
+                        scale: 1.08, 
+                        y: -4,
+                        boxShadow: "0 10px 25px -5px rgba(var(--primary-rgb), 0.2)"
+                    }}
+                    className="group/tag relative flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-center backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10"
+                  >
+                    <span className="text-[11px] font-black tracking-tight text-zinc-400 transition-colors group-hover/tag:text-white uppercase">
+                      {item}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Decorative Infrastructure Graphic */}
+              <div className="mt-auto pt-10 opacity-10 group-hover:opacity-20 transition-opacity select-none flex items-center gap-10">
+                 <div className="flex items-center gap-2">
+                    <div className="h-1 w-1 rounded-full bg-white" />
+                    <div className="h-[1px] w-20 bg-gradient-to-r from-white to-transparent" />
+                 </div>
+                 <span className="text-[0.6rem] font-bold tracking-[0.5em] text-white uppercase">{group.id}_SYNODE_ACTIVE</span>
+              </div>
             </div>
 
-            {/* Skills grid */}
-            <div className="relative grid gap-3">
-              {category.items.map((item, itemIndex) => (
-                <motion.div
-                  key={item}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.4,
-                    delay: index * 0.15 + itemIndex * 0.05
-                  }}
-                  whileHover={{ x: 4 }}
-                  className="group/item flex items-center gap-3 rounded-xl border border-white/5 bg-white/5 px-4 py-3 transition-all duration-200 hover:border-white/20 hover:bg-white/10"
-                >
-                  <CheckCircle2
-                    className={`h-4 w-4 flex-shrink-0 text-transparent transition-colors duration-200 group-hover/item:text-green-400`}
-                    strokeWidth={2.5}
-                  />
-                  <span className="text-sm font-medium text-slate-300 group-hover/item:text-white">
-                    {item}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Decorative sparkle */}
-            <div className="pointer-events-none absolute -right-4 -top-4 opacity-0 transition-opacity duration-300 group-hover:opacity-30">
-              <Sparkles
-                className={`h-24 w-24 bg-gradient-to-br ${category.gradient} bg-clip-text text-transparent`}
-                strokeWidth={1}
-              />
-            </div>
-          </motion.div>
+            {/* Subtle Grid Interaction Overlay */}
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-primary/5 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+          </GlowContainer>
         );
       })}
     </div>

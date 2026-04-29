@@ -6,7 +6,6 @@ import {
   X,
   Bot,
   User,
-  Sparkles,
   Loader2,
 } from "lucide-react";
 
@@ -29,31 +28,31 @@ const MessageBubble = memo(({ msg }) => (
     initial={{ opacity: 0, y: 5 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.15 }}
-    className={`flex items-start gap-2 ${
+    className={`flex items-start gap-3 ${
       msg.sender === "user" ? "flex-row-reverse" : "flex-row"
     }`}
   >
     <div
-      className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full ${
+      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl ${
         msg.sender === "user"
-          ? "bg-gradient-to-br from-blue-600 to-cyan-500"
-          : "bg-gradient-to-br from-slate-700 to-slate-800"
+          ? "bg-primary"
+          : "bg-muted"
       }`}
     >
       {msg.sender === "user" ? (
-        <User className="h-3 w-3 text-white" />
+        <User className="h-4 w-4 text-white" />
       ) : (
-        <Bot className="h-3 w-3 text-white" />
+        <Bot className="h-4 w-4 text-primary" />
       )}
     </div>
     <div
-      className={`max-w-[80%] rounded-2xl px-3 py-2 ${
+      className={`max-w-[85%] rounded-[1.5rem] px-5 py-4 backdrop-blur-md transition-all ${
         msg.sender === "user"
-          ? "bg-gradient-to-br from-blue-600/30 to-cyan-500/30 text-blue-50"
-          : "bg-white/10 text-slate-200"
+          ? "bg-primary text-white shadow-lg shadow-primary/20"
+          : "bg-white/5 border border-white/10 text-foreground group-hover:bg-white/10"
       }`}
     >
-      <p className="text-sm leading-relaxed">{msg.text}</p>
+      <p className="text-sm font-medium leading-relaxed tracking-tight">{msg.text}</p>
     </div>
   </motion.div>
 ));
@@ -67,7 +66,7 @@ const Chatbot = () => {
     {
       id: crypto.randomUUID(),
       sender: "bot",
-      text: "Hi! I'm the AI assistant for Srisajeenthran. Ask about skills, projects, or how to get in touch.",
+      text: "Hello. I am Sris-AI, your intelligent guide for Srisajeenthran's portfolio. How can I assist you today?",
     },
   ]);
   const [isSending, setIsSending] = useState(false);
@@ -77,7 +76,7 @@ const Chatbot = () => {
 
   const scrollToBottom = useCallback(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "auto" });
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
 
@@ -87,7 +86,7 @@ const Chatbot = () => {
 
   useEffect(() => {
     if (open && inputRef.current) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [open]);
 
@@ -96,7 +95,7 @@ const Chatbot = () => {
     if (lowered.includes("skill")) return fallbackTopics.skills;
     if (lowered.includes("project")) return fallbackTopics.projects;
     if (lowered.includes("contact")) return fallbackTopics.contact;
-    return "I'm offline, but feel free to email srisajeenthran00@gmail.com.";
+    return "I'm currently refined for specific queries. Try asking about skills or projects.";
   }, []);
 
   const handleSend = useCallback(
@@ -132,15 +131,10 @@ const Chatbot = () => {
         ]);
       } catch (error) {
         if (error.name === "AbortError") return;
-        console.error("Chatbot assistant failed:", error);
         const fallbackText = getFallbackReply(text);
         setMessages((prev) => [
           ...prev,
-          {
-            id: crypto.randomUUID(),
-            sender: "bot",
-            text: fallbackText,
-          },
+          { id: crypto.randomUUID(), sender: "bot", text: fallbackText },
         ]);
       } finally {
         setIsSending(false);
@@ -151,114 +145,80 @@ const Chatbot = () => {
   );
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
+    <div className="fixed bottom-6 right-6 z-50">
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="group relative mb-3 w-80 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/90 to-slate-900/70 p-4 shadow-2xl backdrop-blur"
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 30 }}
+            className="mb-6 w-[calc(100vw-2.5rem)] max-w-[420px] overflow-hidden rounded-[2.5rem] border-2 border-white/10 bg-card/60 p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:w-[400px]"
           >
-            {/* Header */}
-            <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-teal-500 p-1.5 shadow-lg">
-                  <Bot className="h-4 w-4 text-white" />
+            <div className="mb-6 flex items-center justify-between border-b border-border/10 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
+                  <Bot size={20} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-white">
-                    AI Assistant
-                  </h3>
-                  <p className="text-xs text-slate-400">Always here to help</p>
+                  <h3 className="text-xl font-black tracking-tight text-foreground">Sris-AI</h3>
+                  <div className="flex items-center gap-1.5">
+                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Digital Consciousness Active</span>
+                  </div>
                 </div>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
+              <button
                 onClick={() => setOpen(false)}
-                className="rounded-lg border border-white/10 bg-white/5 p-1.5 text-slate-400 hover:border-white/20 hover:bg-white/10 hover:text-white"
+                className="rounded-full bg-muted/50 p-2 text-muted-foreground hover:bg-muted transition-colors"
               >
-                <X size={16} />
-              </motion.button>
+                <X size={18} />
+              </button>
             </div>
 
-            {/* Messages */}
-            <div className="mb-3 max-h-64 space-y-2 overflow-y-auto pr-2 text-sm scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-              {messages.map((msg, idx) => (
-                <MessageBubble key={msg.id} msg={msg} idx={idx} />
+            <div className="mb-6 flex h-80 flex-col gap-4 overflow-y-auto pr-2 scrollbar-hide">
+              {messages.map((msg) => (
+                <MessageBubble key={msg.id} msg={msg} />
               ))}
               {isSending && (
-                <div className="flex items-start gap-2">
-                  <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-slate-700 to-slate-800">
-                    <Bot className="h-3 w-3 text-white" />
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-muted">
+                    <Loader2 className="h-4 w-4 animate-spin text-primary" />
                   </div>
-                  <div className="flex items-center gap-1 rounded-2xl bg-white/10 px-3 py-2">
-                    <Loader2 className="h-4 w-4 animate-spin text-cyan-400" />
-                    <span className="text-xs text-slate-400">Thinking...</span>
-                  </div>
+                  <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">Thinking...</span>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Form */}
-            <form onSubmit={handleSend} className="flex items-center gap-2">
+            <form onSubmit={handleSend} className="relative flex items-center gap-2">
               <input
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask something..."
-                disabled={isSending}
-                className="flex-1 rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="Ask me anything about Sris..."
+                className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-sm font-medium text-foreground placeholder:text-muted-foreground/30 focus:border-primary/50 focus:bg-white/10 focus:outline-none transition-all"
               />
-              <motion.button
+              <button
                 type="submit"
-                disabled={isSending || !input.trim()}
-                whileHover={{ scale: isSending || !input.trim() ? 1 : 1.1 }}
-                whileTap={{ scale: isSending || !input.trim() ? 1 : 0.9 }}
-                className="flex items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 p-2.5 text-white shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={!input.trim() || isSending}
+                className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all"
               >
-                {isSending ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Send size={16} />
-                )}
-              </motion.button>
+                <Send size={18} className="transition-transform group-hover:translate-x-1" />
+              </button>
             </form>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Toggle Button */}
       <motion.button
-        onClick={() => setOpen((prev) => !prev)}
-        whileHover={{ scale: 1.05, y: -2 }}
+        onClick={() => setOpen(!open)}
+        whileHover={{ scale: 1.05, y: -5 }}
         whileTap={{ scale: 0.95 }}
-        className={`group relative inline-flex items-center gap-2 rounded-full 
-    bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 
-    px-5 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl
-    overflow-hidden  // ⬅️ ensures inner hover layer stays rounded
-    ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+        className={`flex items-center justify-center gap-3 rounded-full bg-primary px-8 py-4 text-sm font-black text-white shadow-2xl transition-all ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
-        {/* Hover overlay – also rounded */}
-        <div
-          className="absolute inset-0 rounded-full 
-      bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 
-      opacity-0 group-hover:opacity-100 transition-opacity"
-        />
-        <div className="relative flex items-center gap-2">
-          <MessageCircle
-            size={18}
-            className="group-hover:scale-110 transition-transform"
-          />
-          <span>Chat with me</span>
-          <Sparkles
-            size={14}
-            className="opacity-0 group-hover:opacity-100 transition-opacity"
-          />
-        </div>
+        <MessageCircle size={20} />
+        <span className="uppercase tracking-[0.2em]">Sris-AI</span>
+        
       </motion.button>
     </div>
   );
