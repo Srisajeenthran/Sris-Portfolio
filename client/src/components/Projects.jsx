@@ -18,6 +18,7 @@ import pizza_img from "../assets/projects/tasty-pizza.png";
 import gymflow from "../assets/projects/gymflow.png";
 import smartcampus from "../assets/projects/smart-campus.png";
 import interviewsuite from "../assets/projects/interview-suite.png";
+import premium_edu from "../assets/projects/premium_edu.png";
 const fallbackProjectImage =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='360' viewBox='0 0 600 360'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop stop-color='%2331247A' offset='0%25'/%3E%3Cstop stop-color='%23553399' offset='50%25'/%3E%3Cstop stop-color='%23E1467C' offset='100%25'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='360' fill='%23101227'/%3E%3Crect x='40' y='60' width='520' height='240' rx='36' fill='url(%23g)' opacity='0.9'/%3E%3C/svg%3E";
 
@@ -37,6 +38,23 @@ const projects = [
       solution: "Built a multi-agent system that uses NLP for screening and OpenAI's Whisper for real-time transcription and sentiment analysis during live interviews.",
       results: ["40% reduction in screening time", "Consistent objective scoring for 100+ candidates", "95% accuracy in Speech-to-Text transcription"],
       architecture: "Python Flask Microservices + React 19 + Webrtc for live low-latency video feeds."
+    }
+  },
+  {
+    tag: "EdTech Consultancy",
+    title: "Premium Education Consultancy",
+    description: "A high-performance web application ecosystem designed to streamline study abroad consultancies, featuring a stunning storefront, secure admin dashboard, and robust backend.",
+    tech: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS", "Framer Motion"],
+    glow: "from-cyan-500/80 via-cyan-500/40 to-cyan-900/20",
+    image: premium_edu,
+    links: {
+      live: "https://www.premiumeducation.lk/",
+    },
+    caseStudy: {
+      challenge: "International education consultancies struggle with fragmented data management and the need for a professional, high-trust digital storefront.",
+      solution: "Developed a unified ecosystem consisting of a premium React storefront, an administrative portal for real-time content management, and a secure REST API backend.",
+      results: ["Streamlined student inquiry processing", "100% manageable content via Admin Portal", "Optimized performance with Vite and Tailwind v4"],
+      architecture: "React/Vite micro-frontends (Storefront & Admin) integrated with a centralized Express/Node.js/MongoDB backend."
     }
   },
   {
@@ -72,6 +90,26 @@ const projects = [
       solution: "Engineered a minimalist, high-speed ordering flow with Tailwind CSS v4 and Framer Motion layout transitions.",
       results: ["Completed orders in under 45 seconds", "Zero layout shifts during state transitions", "100% Lighthouse Performance score"],
       architecture: "React 19 + Vite for ultra-fast HMR and build times."
+    }
+  },
+
+  
+  {
+    tag: "Hospitality",
+    title: "Hotel Management Suite",
+    description: "End-to-end hotel management suite with admin and customer portals, room reservations, employee management, payroll, and event handling.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Payments", "JWT"],
+    glow: "from-primary via-primary/60 to-primary/30",
+    image: hotel_img,
+    links: {
+      live: "https://github.com/divey26/Hotel_Management_Syatem-master.git",
+      github: "https://github.com/divey26/Hotel_Management_Syatem-master.git",
+    },
+    caseStudy: {
+      challenge: "Managing massive hotel operations (Payroll, Events, Room Booking) manually is prone to severe human error across departments.",
+      solution: "Built a multi-portal ecosystem with dedicated views for employees, admins, and guests to synchronize all operations in real-time.",
+      results: ["Centralized 5 separate hotel departments into one UI", "Secure JWT-based access for 50+ staff", "Automated payroll generation"],
+      architecture: "Full-stack MERN suite with complex cross-collection MongoDB relationships."
     }
   },
   {
@@ -127,42 +165,8 @@ const projects = [
     }
   },
  
-  {
-    tag: "Hospitality",
-    title: "Hotel Management Suite",
-    description: "End-to-end hotel management suite with admin and customer portals, room reservations, employee management, payroll, and event handling.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Payments", "JWT"],
-    glow: "from-primary via-primary/60 to-primary/30",
-    image: hotel_img,
-    links: {
-      live: "https://github.com/divey26/Hotel_Management_Syatem-master.git",
-      github: "https://github.com/divey26/Hotel_Management_Syatem-master.git",
-    },
-    caseStudy: {
-      challenge: "Managing massive hotel operations (Payroll, Events, Room Booking) manually is prone to severe human error across departments.",
-      solution: "Built a multi-portal ecosystem with dedicated views for employees, admins, and guests to synchronize all operations in real-time.",
-      results: ["Centralized 5 separate hotel departments into one UI", "Secure JWT-based access for 50+ staff", "Automated payroll generation"],
-      architecture: "Full-stack MERN suite with complex cross-collection MongoDB relationships."
-    }
-  },
-   {
-    tag: "FoodTech",
-    title: "TastyPizza – Premium Ordering",
-    description: "A modern React + Vite powered pizza ordering interface with category browsing, detailed order views, cart flow, and smooth micro-animations. Designed with Tailwind CSS v4 and Framer Motion.",
-    tech: ["React", "Vite", "Tailwind CSS", "Framer Motion", "React Router"],
-    glow: "from-primary via-primary/70 to-primary/50",
-    image: pizza_img,
-    links: {
-      live: "https://deluxe-beijinho-d8097c.netlify.app/",
-      github: "https://github.com/Srisajeenthran/TastyPizza.git",
-    },
-    caseStudy: {
-      challenge: "High abandonment rates in food apps due to complex checkout flows and outdated design.",
-      solution: "Engineered a minimalist, high-speed ordering flow with Tailwind CSS v4 and Framer Motion layout transitions.",
-      results: ["Completed orders in under 45 seconds", "Zero layout shifts during state transitions", "100% Lighthouse Performance score"],
-      architecture: "React 19 + Vite for ultra-fast HMR and build times."
-    }
-  },
+  
+   
 ];
 
 const Projects = () => {
