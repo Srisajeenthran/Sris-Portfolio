@@ -70,6 +70,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               <motion.a
                 key={link.href}
                 href={link.href}
+                aria-label={`Navigate to ${link.label} section`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: idx * 0.1 }}

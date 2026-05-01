@@ -258,6 +258,7 @@ const Projects = () => {
                             e.stopPropagation();
                             openCaseStudy(project);
                           }}
+                          aria-label={`Open case study for ${project.title}`}
                           className="flex w-full items-center justify-center gap-3 rounded-2xl bg-primary p-5 text-[10px] font-black uppercase tracking-[0.2em] text-white transition-all shadow-2xl hover:scale-105 active:scale-95 pointer-events-auto"
                         >
                           <BookOpen className="h-5 w-5 text-emerald-400" />
@@ -269,6 +270,7 @@ const Projects = () => {
                               href={project.links.github}
                               target="_blank"
                               rel="noopener noreferrer"
+                              aria-label={`View ${project.title} source code on GitHub`}
                               onClick={(e) => e.stopPropagation()}
                               className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 hover:text-white hover:bg-white/10 transition-all pointer-events-auto active:scale-95"
                             >

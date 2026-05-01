@@ -40,9 +40,9 @@ const Footer = () => (
         className="space-y-8"
       >
         <div className="space-y-4">
-          <h2 className="text-4xl font-black tracking-tighter text-foreground sm:text-7xl">
+          <h3 className="text-4xl font-black tracking-tighter text-foreground sm:text-7xl">
             Srisajeenthran <br /> Sritharan
-          </h2>
+          </h3>
           <div className="flex items-center gap-3">
             <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Digital Consciousness Active</span>
@@ -58,6 +58,7 @@ const Footer = () => (
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Visit my ${social.name}`}
                 whileHover={{ scale: 1.1, y: -5 }}
                 className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/5 bg-white/5 text-muted-foreground transition-all hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
               >

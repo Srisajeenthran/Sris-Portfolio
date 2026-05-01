@@ -139,6 +139,8 @@ const Contact = () => {
                 <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Name</p>
                 <input
                   type="text"
+                  name="name"
+                  aria-label="Full Name"
                   placeholder="Your name"
                   value={form.name}
                   onChange={handleChange("name")}
@@ -150,6 +152,8 @@ const Contact = () => {
                 <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Email</p>
                 <input
                   type="email"
+                  name="email"
+                  aria-label="Email Address"
                   placeholder="you@email.com"
                   value={form.email}
                   onChange={handleChange("email")}
@@ -162,6 +166,8 @@ const Contact = () => {
               <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Subject</p>
               <input
                 type="text"
+                name="subject"
+                aria-label="Message Subject"
                 placeholder="Project idea"
                 value={form.subject}
                 onChange={handleChange("subject")}
@@ -173,6 +179,8 @@ const Contact = () => {
               <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Message</p>
               <textarea
                 rows="5"
+                name="message"
+                aria-label="Your Message"
                 placeholder="Tell me about your vision..."
                 value={form.message}
                 onChange={handleChange("message")}
@@ -228,6 +236,7 @@ const Contact = () => {
                 
                 <a
                   href={item.href}
+                  aria-label={item.label}
                   className="relative z-10 flex items-center gap-4 sm:gap-6 w-full"
                 >
                   <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg transition-transform duration-500 group-hover:scale-110`}>
