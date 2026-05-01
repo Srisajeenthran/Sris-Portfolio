@@ -166,7 +166,7 @@ const Hero = () => {
           <div className="relative overflow-hidden rounded-[2rem]">
             <motion.img
               src={PROFILE_PHOTO}
-              alt="Portrait"
+              alt="Srisajeenthran Sritharan - AI Specialist & Full Stack Engineer"
               className="h-[450px] sm:h-[500px] w-full object-cover grayscale transition-all duration-700 group-hover:scale-110 group-hover:grayscale-0"
               onError={(e) => {
                 if (!e.currentTarget.dataset.fallbackApplied) {
